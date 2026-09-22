@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Dancing+Script:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VARIABLES CSS — TOKENS DE DISEÑO DE VINOTECA ASTRINGENCIA
+   Requirement 1: Identidad Visual y Branding
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Paleta de colores de marca ─────────────────────────────────────────── */
+  --color-primario: #7b2030;
+  --color-primario-oscuro: #5c1824;
+  --color-primario-claro: #9b3040;
+  --color-fondo: #f5efe0;
+  --color-acento: #c9a87c;
+  --color-acento-oscuro: #a8895a;
+  --color-acento-claro: #e0c49a;
+  --color-texto: #2c1a0e;
+  --color-texto-suave: #6b4c35;
+  --color-blanco: #ffffff;
+  --color-negro: #000000;
+  --color-prueba: #D1C2B4;
+
+  /* ── Variables de fuentes ────────────────────────────────────────────────── */
+  --fuente-cormorant: 'Cormorant Garamond', Georgia, serif;
+  --fuente-dancing: 'Dancing Script', cursive;
+  --fuente-dm-sans: 'DM Sans', system-ui, sans-serif;
+
+  /* ── Espaciados de sección (ritmo vertical 80-120px) ────────────────────── */
+  --espaciado-seccion-movil: 80px;
+  --espaciado-seccion-tablet: 100px;
+  --espaciado-seccion-escritorio: 120px;
+
+  /* ── Duraciones de animación ─────────────────────────────────────────────── */
+  --duracion-hover: 250ms;
+  --duracion-tarjeta: 300ms;
+  --duracion-seccion: 600ms;
+  --duracion-desplazamiento: 800ms;
+
+  /* ── Sombras ─────────────────────────────────────────────────────────────── */
+  --sombra-tarjeta: 0 4px 16px rgba(44, 26, 14, 0.08);
+  --sombra-tarjeta-hover: 0 8px 32px rgba(44, 26, 14, 0.16);
+  --sombra-flotante: 0 4px 24px rgba(123, 32, 48, 0.3);
+
+  /* ── Bordes y radios ─────────────────────────────────────────────────────── */
+  --radio-tarjeta: 12px;
+  --radio-boton: 8px;
+  --radio-imagen: 8px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ESTILOS BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  /* Configuración base del documento */
+  html {
+    /* Idioma argentino (Requirement 14, 16) */
+    scroll-behavior: smooth;
+    /* Prevenir overflow horizontal (Requirement 13) */
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: var(--fuente-dm-sans);
+    /* Altura de línea óptima para legibilidad (Requirement 13) */
+    line-height: 1.65;
+    /* Antialiasing para mejor renderizado de texto */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── Tipografía semántica ────────────────────────────────────────────────── */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--fuente-cormorant);
+    color: var(--color-texto);
+    line-height: 1.2;
+  }
+
+  /* ── Focus visible para accesibilidad (Requirement 16) ──────────────────── */
+  :focus-visible {
+    outline: 3px solid var(--color-acento);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ── Imágenes responsivas por defecto ────────────────────────────────────── */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* ── Eliminar estilos de lista por defecto ───────────────────────────────── */
+  ul,
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* ── Reset de botones ────────────────────────────────────────────────────── */
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+  }
+
+  /* ── Ancho máximo de párrafos (Requirement 3: 65 caracteres) ─────────────── */
+  .parrafo-lectura {
+    max-width: 65ch;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPONENTES REUTILIZABLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* ── Botones de llamada a la acción ─────────────────────────────────────── */
+  .boton-primario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    font-family: var(--fuente-dm-sans);
+    font-weight: 500;
+    border-radius: var(--radio-boton);
+    transition: background-color var(--duracion-hover) ease,
+      transform var(--duracion-hover) ease,
+      box-shadow var(--duracion-hover) ease;
+    /* Tamaño mínimo de toque para accesibilidad (Requirement 13: 44x44px) */
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .boton-primario:hover {
+    background-color: var(--color-primario-oscuro);
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-tarjeta);
+  }
+
+  .boton-primario:active {
+    transform: translateY(0);
+  }
+
+  .boton-secundario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background-color: transparent;
+    color: var(--color-primario);
+    font-family: var(--fuente-dm-sans);
+    font-weight: 500;
+    border: 2px solid var(--color-primario);
+    border-radius: var(--radio-boton);
+    transition: all var(--duracion-hover) ease;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .boton-secundario:hover {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+  }
+
+  .boton-acento {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background-color: var(--color-acento);
+    color: var(--color-texto);
+    font-family: var(--fuente-dm-sans);
+    font-weight: 600;
+    border-radius: var(--radio-boton);
+    transition: all var(--duracion-hover) ease;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .boton-acento:hover {
+    background-color: var(--color-acento-oscuro);
+  }
+
+  /* ── Contenedor principal de página ─────────────────────────────────────── */
+  .contenedor {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .contenedor {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contenedor {
+      padding-inline: 3rem;
+    }
+  }
+
+  /* ── Sección genérica con ritmo vertical ─────────────────────────────────── */
+  .seccion {
+    padding-block: var(--espaciado-seccion-movil);
+  }
+
+  @media (min-width: 768px) {
+    .seccion {
+      padding-block: var(--espaciado-seccion-tablet);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .seccion {
+      padding-block: var(--espaciado-seccion-escritorio);
+    }
+  }
+
+  /* ── Título de sección ───────────────────────────────────────────────────── */
+  .titulo-seccion {
+    font-family: var(--fuente-cormorant);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    color: var(--color-primario);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitulo-seccion {
+    font-family: var(--fuente-dancing);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    color: var(--color-acento);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  /* ── Tarjeta base ────────────────────────────────────────────────────────── */
+  .tarjeta {
+    background-color: var(--color-blanco);
+    border-radius: var(--radio-tarjeta);
+    box-shadow: var(--sombra-tarjeta);
+    overflow: hidden;
+    transition: transform var(--duracion-tarjeta) ease,
+      box-shadow var(--duracion-tarjeta) ease;
+  }
+
+  .tarjeta:hover {
+    transform: scale(1.02);
+    box-shadow: var(--sombra-tarjeta-hover);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILIDADES PERSONALIZADAS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  /* ── Texto usando fuentes de marca ──────────────────────────────────────── */
+  .fuente-display {
+    font-family: var(--fuente-cormorant);
+  }
+
+  .fuente-decorativa {
+    font-family: var(--fuente-dancing);
+  }
+
+  .fuente-cuerpo {
+    font-family: var(--fuente-dm-sans);
+  }
+
+  /* ── Colores de texto usando variables CSS ───────────────────────────────── */
+  .texto-primario {
+    color: var(--color-primario);
+  }
+
+  .texto-acento {
+    color: var(--color-acento);
+  }
+
+  .texto-suave {
+    color: var(--color-texto-suave);
+  }
+
+  /* ── Fondos usando variables CSS ────────────────────────────────────────── */
+  .fondo-primario {
+    background-color: var(--color-primario);
+  }
+
+  .fondo-base {
+    background-color: var(--color-fondo);
+  }
+
+  .fondo-acento {
+    background-color: var(--color-acento);
+  }
+
+  /* ── Animación de aparición al hacer scroll ─────────────────────────────── */
+  .aparecer-al-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--duracion-seccion) ease,
+      transform var(--duracion-seccion) ease;
+  }
+
+  .aparecer-al-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Enlace de saltar al contenido (accesibilidad) ──────────────────────── */
+  .saltar-contenido {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    font-weight: 600;
+    z-index: 9999;
+    transition: top 0.2s;
+  }
+
+  .saltar-contenido:focus {
+    top: 0;
+  }
+
+  /* ── Texto centrado en secciones ────────────────────────────────────────── */
+  .centro-seccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPETO POR PREFERENCIAS DE MOVIMIENTO REDUCIDO
+   Requirement 15: Animations and Microinteractions
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .aparecer-al-scroll {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%) rotate(45deg);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0) rotate(45deg);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
