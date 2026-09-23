@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { INFORMACION_NEGOCIO } from '@/estilos/tokens';
 
 /**
@@ -92,21 +93,19 @@ export default function SeccionHero() {
           className="w-px h-16 bg-gradient-to-b from-transparent to-[var(--color-acento)] mb-2"
         />
 
-        {/* Tagline con fuente decorativa (Requirement 2) */}
-        <p
-          className="fuente-decorativa text-[var(--color-acento)] text-2xl tablet:text-3xl"
-          aria-label={INFORMACION_NEGOCIO.eslogan}
-        >
-          {INFORMACION_NEGOCIO.eslogan}
-        </p>
-
-        {/* Nombre del negocio (Requirement 2: logo prominente) */}
-        <h1
-          className="fuente-display text-[var(--color-fondo)] font-semibold leading-none"
-          style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)' }}
-        >
-          {INFORMACION_NEGOCIO.nombre}
+        {/* Nombre del negocio (Logo prominente) */}
+        <h1 className="sr-only">
+          {INFORMACION_NEGOCIO.nombre} - {INFORMACION_NEGOCIO.eslogan}
         </h1>
+        
+        <Image
+          src="/imagenes/logo-astringencia-claro-sin-uvas.png"
+          alt="Logo Vinoteca Astringencia"
+          width={816}
+          height={258}
+          className="w-[90vw] max-w-[400px] sm:max-w-[500px] h-auto object-contain mb-6"
+          priority
+        />
 
         {/* Descripción breve */}
         <p
